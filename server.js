@@ -37,8 +37,8 @@ app.post("/submit-public-key", async (req, res) => {
     const base64Credentials = authHeader.split(' ')[1];
     const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
     const password = credentials;
-    console.log('Password:', password);
-    console.log('Public Key:', req.body.publicKey);
+    // console.log('Password:', password);
+    // console.log('Public Key:', req.body.publicKey);
 
     try {
         const isPasswordValid = await bcrypt.compare(password, serverPasswordHash);
@@ -46,7 +46,7 @@ app.post("/submit-public-key", async (req, res) => {
             return res.status(401).send('Invalid password');
         }
     } catch (error) {
-        console.error('Error comparing passwords:', error);
+        // console.error('Error comparing passwords:', error);
         return res.status(500).send('Internal server error');
     }
 
@@ -59,8 +59,8 @@ app.post("/submit-public-key", async (req, res) => {
  */
 app.post("/verify-message", async (req, res) => {
     const { message, signature } = req.body;
-    console.log('Received message:', message);
-    console.log('Received signature:', signature);
+    // console.log('Received message:', message);
+    // console.log('Received signature:', signature);
     if (!message || !signature) {
         return res.status(400).send('Message or signature missing');
     }
@@ -68,9 +68,9 @@ app.post("/verify-message", async (req, res) => {
     try {
         const verify = createVerify("RSA-SHA256");
         verify.update(message);
-        console.log("Stored Public Key:", storedPublicKey);
+        // console.log("Stored Public Key:", storedPublicKey);
         const isVerified = verify.verify(storedPublicKey, signature, "base64");
-        console.log("Signature verification:", isVerified);
+        // console.log("Signature verification:", isVerified);
         res.send({
             valid: isVerified
         });
