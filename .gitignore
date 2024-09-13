@@ -1,0 +1,10 @@
+# Ignore private and public keys
+private_key.pem
+public_key.pem
+
+# Ignore node_modules
+node_modules
+
+# Vscode
+.vscode
+
